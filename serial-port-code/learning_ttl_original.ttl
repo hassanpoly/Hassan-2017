@@ -1,0 +1,108 @@
+; Test de macro TTL pour Tera Term
+; Par Florian
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;; Liste des Variables
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+filename = 'Sinus_Test2_Pos1_vs_Sinus_Test2_Pos2_LISTE_FAUTE_CONVERTI_V2.txt'
+;;nombre_adresse = 180
+;;nombre_adresse = 111
+nombre_adresse = 100
+
+nb_caract = 9
+
+strdim tableau_adresse nb_caract
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;; Lecture des adresses 
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+fileopen listeadresse filename 0
+
+send 'I'
+wait 'I>'
+
+for j 1 nombre_adresse
+	for i 1 nb_caract
+		fileread listeadresse 1 tableau_adresse[i-1]
+	next
+
+	call inj
+	;call test
+	
+	fileread listeadresse 2 inutile
+
+	mpause 1000
+	messagebox 'Continuer ?' 'tera Term'
+	;;send 'O'
+	;;wait 'O>'
+	;;mpause 200
+	;;messagebox 'Continuer ?' 'tera Term'
+	;;send 'I'
+	;;wait 'I>'
+next
+	
+	
+yesnobox 'Afficher le statut?' 'Tera Term'
+if result then
+	sendln 'S'
+else 
+	goto fin
+
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;; Routine Fin
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+:fin
+
+end
+
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;; Routine Injection
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+:inj
+send 'N'
+mpause 100
+send ' '
+mpause 100
+send 'C'
+mpause 100
+send tableau_adresse[0]
+mpause 100
+send tableau_adresse[1]
+mpause 100
+send tableau_adresse[2]
+mpause 100
+send tableau_adresse[3]
+mpause 100
+send tableau_adresse[4]
+mpause 100
+send tableau_adresse[5]
+mpause 100
+send tableau_adresse[6]
+mpause 100
+send tableau_adresse[7]
+mpause 100
+send tableau_adresse[8]
+mpause 100
+
+return
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;; Routine Test
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+:test
+
+messagebox tableau_adresse[0] 'Caractere 1'
+messagebox tableau_adresse[1] 'Caractere 2'
+messagebox tableau_adresse[2] 'Caractere 3'
+messagebox tableau_adresse[3] 'Caractere 4'
+messagebox tableau_adresse[4] 'Caractere 5'
+messagebox tableau_adresse[5] 'Caractere 6'
+messagebox tableau_adresse[6] 'Caractere 7'
+messagebox tableau_adresse[7] 'Caractere 8'
+messagebox tableau_adresse[8] 'Caractere 9'
+
+return
+
+
